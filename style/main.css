@@ -1,0 +1,57 @@
+:root {
+	--white-width: 80px;
+	--black-width: 70px;
+}
+
+.body {
+	margin: 0;
+	font-family: "Bahnschrift";
+}
+
+.wrapper {
+	display: grid;
+	grid-template-areas: "header-container game-container";
+}
+
+.game-container {
+	display: grid;
+	grid-template-areas:
+		"lane-white lane-black lane-white lane-white lane-black lane-white"
+		"judgeline"
+		"button-white button-black button-white button-white button-black button-white"
+		"hp-bar"
+		"hp-meter";
+	width: calc(4 * var(--white-width) + 2 * var(--black-width));
+}
+
+.judgeline, .hp-bar, .hp-meter {
+	grid-column-start: 1;
+	grid-column-end: 7;
+}
+
+.lane-white, .lane-black {
+	height: 79.5vh;
+}
+
+.lane-white, .button-white {
+	width: var(--white-width);
+}
+
+.lane-black, .button-black {
+	width: var(--black-width);
+}
+
+.lane-white {
+	background: rgb(24, 24, 24);
+}
+
+.lane-black {
+	background: rgb(12, 12, 12);
+}
+
+.judgeline {
+	height: 1vh;
+	background: rgb(255, 0, 0);
+}
+
+
