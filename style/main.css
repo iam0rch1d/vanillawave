@@ -1,6 +1,8 @@
 :root {
 	--white-width: 80px;
 	--black-width: 70px;
+	--wrapper-border-width: 25px;
+	--button-border-width: 2.5px;
 }
 
 body {
@@ -10,7 +12,6 @@ body {
 	user-select: none;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
 	background: rgb(247, 247, 247);
 	font-family: "Bahnschrift";
 	text-align: center;
@@ -19,7 +20,7 @@ body {
 .wrapper {
 	display: grid;
 	grid-template-areas: "header-container game-container";
-	grid-template-columns: 400px calc(4 * var(--white-width) + 2 * var(--black-width));
+	grid-template-columns: 320px calc(4 * var(--white-width) + 2 * var(--black-width) + 2 * var(--wrapper-border-width));
 }
 
 .header {
@@ -27,14 +28,15 @@ body {
 }
 
 .game-container {
+	padding: 0 var(--wrapper-border-width);
 	display: grid;
 	grid-template-areas:
 		"lane-white lane-black lane-white lane-white lane-black lane-white"
 		"judgeline"
-		"button-white button-black button-white button-white button-black button-white"
+		"button-container"
 		"hp-bar"
 		"hp-numeric";
-	background: rgb(64, 64, 64);
+	background-image: linear-gradient(to bottom, rgb(0, 0, 0), rgb(24, 24, 24), rgb(16, 16, 16));
 }
 
 .lane-white, .lane-black {
@@ -46,21 +48,17 @@ body {
 
 .lane-white {
 	width: calc(var(--white-width) - 2px);
-	background: rgb(32, 32, 32);
+	background: rgb(36, 36, 36);
 }
 
 .lane-black {
 	width: calc(var(--black-width) - 2px);
-	background: rgb(16, 16, 16);
+	background: rgb(24, 24, 24);
 }
 
-.judgeline, .hp-bar, .hp-numeric {
+.judgeline, .button-container, .hp-bar, .hp-numeric {
 	grid-column-start: 1;
 	grid-column-end: 7;
-}
-
-.hp-numeric {
-	text-align: right;
 }
 
 .judgeline {
@@ -69,30 +67,54 @@ body {
 	box-shadow: 0px -6px 8px 0px rgba(49, 236, 217, 0.9);
 }
 
+.button-container {
+	display: grid;
+	grid-template-areas: "button-white button-black button-white button-white button-black button-white";
+	grid-template-columns: var(--white-width) var(--black-width) var(--white-width) var(--white-width) var(--black-width) var(--white-width);
+	background: rgb(48, 48, 48);
+	box-shadow: inset 0 -8px 16px 8px rgba(16, 16, 16, 1);
+}
+
 .button-white {
-	margin: 8px 1px;
+	margin: 1vh calc(4px - var(--button-border-width));
 	width: calc(var(--white-width) - 8px);
-	height: 80px;
+	height: 8vh;
 	border-style: solid;
-	border-width: 3px;
-	border-color: rgba(0, 0, 0, 0.8);
-	border-radius: 2px;
+	border-width: var(--button-border-width);
+	border-color: rgba(0, 0, 0, 0.9);
+	border-radius: 3px;
 	display: grid;
 	place-items: center;
 	background: rgb(224, 224, 224);
-	box-shadow: inset 0px -16px 10px 5px rgba(0, 0, 0, 0.4);
+	box-shadow: inset 0px calc(var(--white-width) * -0.2) 10px 5px rgba(0, 0, 0, 0.4);
 }
 
 .button-black {
-	margin: 0px 1px;
+	margin: 0 calc(4px - var(--button-border-width));
 	width: calc(var(--black-width) - 8px);
-	height: 70px;
+	height: 7vh;
 	border-style: solid;
-	border-width: 3px;
+	border-width: var(--button-border-width);
 	border-color: rgba(0, 0, 0, 0.8);
-	border-radius: 2px;
+	border-radius: 3px;
 	display: grid;
 	place-items: center;
 	background: rgb(48, 48, 48);
-	box-shadow: inset 0px -14px 10px 5px rgba(0, 0, 0, 0.4);
+	box-shadow: inset 0px calc(var(--black-width) * -0.2) 10px 5px rgba(0, 0, 0, 0.4);
+}
+
+.hp-bar {
+	width: calc(4 * var(--white-width) + 2 * var(--black-width) - 2 * var(--button-border-width));
+	height: 3vh;
+	border-style: solid;
+	border-width: var(--button-border-width);
+	border-color: rgba(0, 0, 0, 0.8);
+	border-radius: 3px;
+	background-image: linear-gradient(to bottom, rgb(247, 85, 85), rgb(224, 0, 0), rgb(176, 0, 0), rgb(128, 0, 0));
+}
+
+.hp-numeric {
+	margin: 1vh 0;
+	text-align: right;
+	color: rgba(247, 247, 247, 0.5);
 }
